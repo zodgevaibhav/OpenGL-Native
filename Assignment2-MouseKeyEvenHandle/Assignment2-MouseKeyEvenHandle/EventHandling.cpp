@@ -82,7 +82,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		case 0X51:
 			MessageBox(hwnd, TEXT("Q button pressed"), TEXT("Button Pressed Event"), 0);
 			break;
+		default:
+			MessageBox(hwnd, TEXT("Unhandled key pressed"), TEXT("Button Pressed Event"), 0);
+			break;
 		}
+		break;
+
+	case WM_CREATE:
+		MessageBox(hwnd, TEXT("Window is opening..."), TEXT("Window Create Event"), 0);
 		break;
 	}
 	return (DefWindowProc(hwnd, iMsg, wParam, lParam));
