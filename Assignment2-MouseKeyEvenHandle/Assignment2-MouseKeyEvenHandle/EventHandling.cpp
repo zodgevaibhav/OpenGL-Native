@@ -48,10 +48,41 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpszcmdLi
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
+	TCHAR strMessage[255];
 	switch (iMsg)
 	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
+		break;
+	case WM_LBUTTONDOWN:
+		wsprintf(strMessage, TEXT(" Clicked on cordinates X-%d, Y-%d, points-%d", GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam),MAKEPOINTS(lParam)));
+		MessageBox(hwnd,strMessage,TEXT("Coordinates of button"),0);
+		break;
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			MessageBox(hwnd, TEXT("Escape button pressed"), TEXT("Button Pressed Event"), 0);
+			break;
+		case 0X41:
+			MessageBox(hwnd, TEXT("A button pressed"), TEXT("Button Pressed Event"), 0);
+			break;
+		case 0X42:
+			MessageBox(hwnd, TEXT("B button pressed"), TEXT("Button Pressed Event"), 0);
+			break;
+		case 0X46:
+			MessageBox(hwnd, TEXT("F button pressed"), TEXT("Button Pressed Event"), 0);
+			break;
+		case 0X4C:
+			MessageBox(hwnd, TEXT("L button pressed"), TEXT("Button Pressed Event"), 0);
+			break;
+		case 0X54:
+			MessageBox(hwnd, TEXT("T button pressed"), TEXT("Button Pressed Event"), 0);
+			break;
+		case 0X51:
+			MessageBox(hwnd, TEXT("Q button pressed"), TEXT("Button Pressed Event"), 0);
+			break;
+		}
 		break;
 	}
 	return (DefWindowProc(hwnd, iMsg, wParam, lParam));
