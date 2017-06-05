@@ -1,7 +1,7 @@
 #include<Windows.h>
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-
+HBRUSH hBrushForBColor;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpszcmdLine, int nCmdShow)
 {
 	WNDCLASSEX wndclass;
@@ -53,34 +53,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
+
 	case WM_KEYDOWN:
 		switch (wParam)
 		{
-		case VK_ESCAPE:
-			MessageBox(hwnd, TEXT("Escape button pressed"), TEXT("Button Pressed Event"), 0);
+		case 0X52: //R
+			hBrushForBColor = CreateSolidBrush(RGB(255, 0, 0));
+			InvalidateRect(hwnd, NULL, true);
 			break;
-		case 0X41:
-			MessageBox(hwnd, TEXT("A button pressed"), TEXT("Button Pressed Event"), 0);
+		case 0X47: //G
+			hBrushForBColor = CreateSolidBrush(RGB(0, 255, 0));
+			InvalidateRect(hwnd, NULL, true);
 			break;
-		case 0X42:
-			MessageBox(hwnd, TEXT("B button pressed"), TEXT("Button Pressed Event"), 0);
+		case 0X42: //B
+			hBrushForBColor = CreateSolidBrush(RGB(0, 0, 255));
+			InvalidateRect(hwnd, NULL, true);
 			break;
-		case 0X46:
-			MessageBox(hwnd, TEXT("F button pressed"), TEXT("Button Pressed Event"), 0);
+		case 0X59: //Y
+			hBrushForBColor = CreateSolidBrush(RGB(255, 255, 0));
+			InvalidateRect(hwnd, NULL, true);
 			break;
-		case 0X4C:
-			MessageBox(hwnd, TEXT("L button pressed"), TEXT("Button Pressed Event"), 0);
+		case 0X4b: //K
+			hBrushForBColor = CreateSolidBrush(RGB(0, 0, 0));
+			InvalidateRect(hwnd, NULL, true);
 			break;
-		case 0X54:
-			MessageBox(hwnd, TEXT("T button pressed"), TEXT("Button Pressed Event"), 0);
-			break;
-		case 0X51:
-			MessageBox(hwnd, TEXT("Q button pressed"), TEXT("Button Pressed Event"), 0);
+		case 0X4d: //M
+			hBrushForBColor = CreateSolidBrush(RGB(255, 0, 255));
+			InvalidateRect(hwnd, NULL, true);
 			break;
 		default:
 			MessageBox(hwnd, TEXT("Unhandled key pressed"), TEXT("Button Pressed Event"), 0);
 			break;
 		}
+	case WM_PAINT:
+		PAINTSTRUCT ps;
+		HDC hdc = BeginPaint(hwnd, &ps);
+		FillRect(hdc, &ps.rcPaint, (HBRUSH)(hBrushForBColor));
+		EndPaint(hwnd, &ps);
 		break;
 	}
 	return (DefWindowProc(hwnd, iMsg, wParam, lParam));
