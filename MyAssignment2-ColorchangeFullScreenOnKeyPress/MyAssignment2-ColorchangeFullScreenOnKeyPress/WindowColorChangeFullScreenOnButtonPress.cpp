@@ -1,4 +1,4 @@
-#include<Windows.h>
+	#include<Windows.h>
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HBRUSH hBrushForBColor;
