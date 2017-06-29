@@ -121,37 +121,31 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 			red = 1.0f;
 			green = 0.0f;
 			blue = 0.0f;
-			initialize();
 			break;
 		case 0X47: //G
 			red = 0.0f;
 			green = 1.0f;
 			blue = 0.0f;
-			initialize();
 			break;
 		case 0X42: //B
 			red = 0.0f;
 			green = 0.0f;
 			blue = 1.0f;
-			initialize();
 			break;
 		case 0X59: //Y
 			red = 1.0f;
 			green = 1.0f;
 			blue = 0.0f;
-			initialize();
 			break;
 		case 0X4b: //K
 			red = 0.0f;
 			green = 0.0f;
 			blue = 0.0f;
-			initialize();
 			break;
 		case 0X4d: //M
 			red = 1.0f;
 			green = 0.0f;
 			blue = 1.0f;
-			initialize();
 			break;
 		case VK_ESCAPE:
 			DestroyWindow(hwnd);
@@ -172,6 +166,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 			MessageBox(hwnd, TEXT("Unhandled key pressed"), TEXT("Button Pressed Event"), 0);
 			break;
 		}
+		glClearColor(red, green, blue, 0.0f);
 	case WM_PAINT:
 		display();
 		break;
@@ -191,6 +186,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 	case WM_CLOSE:
 		uninitialize();
 	}
+
 	return (DefWindowProc(hwnd, iMsg, wParam, lParam));
 }
 
