@@ -17,6 +17,7 @@ GLclampf red = 0.0f;
 GLclampf green = 0.0f;
 GLclampf blue = 1.0f;
 
+int paintingSequenceCounter = 3;
 
 DWORD dwStyle;
 WINDOWPLACEMENT wpPrev = { sizeof(WINDOWPLACEMENT) };
@@ -186,6 +187,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		resize(LOWORD(lParam), HIWORD(lParam));
 		break;
 	case WM_CLOSE:
+		gbEscaseKeyPressed = true;
 		uninitialize();
 	}
 
@@ -199,87 +201,66 @@ void display(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glBegin(GL_QUADS);
+	if (paintingSequenceCounter % 3 == 0) {
+		glBegin(GL_QUADS);
 		glColor3f(getRandomNumer(), getRandomNumer(), getRandomNumer());
 
 		glVertex3f(1.0f, 1.0f, 0.0f);
 		glVertex3f(-1.0f, 1.0f, 0.0f);
 		glVertex3f(-1.0f, -1.0f, 0.0f);
 		glVertex3f(1.0f, -1.0f, 0.0f);
-	glEnd();
+		glEnd();
+		paintingSequenceCounter = 5;
+	}
 
 
-	/*glBegin(GL_QUADS);
-	glColor3f(getRandomNumer(), getRandomNumer(), getRandomNumer());
-
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, -1.0f, 0.0f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glEnd();*/
-
-	//----------------------------------------------------------------
-
-	glBegin(GL_QUADS);
+	if (paintingSequenceCounter % 5 == 0) {
+		glBegin(GL_QUADS);
 		glColor3f(getRandomNumer(), getRandomNumer(), getRandomNumer());
 
 		glVertex3f(0.75f, 0.75f, 0.0f);
 		glVertex3f(-0.75f, 0.75f, 0.0f);
 		glVertex3f(-0.75f, -0.75f, 0.0f);
 		glVertex3f(0.75f, -0.75f, 0.0f);
-	glEnd();
+		glEnd();
+		paintingSequenceCounter = 7;
+	}
 
-
-	/*glBegin(GL_QUADS);
-	glColor3f(getRandomNumer(), getRandomNumer(), getRandomNumer());
-
-	glVertex3f(0.0f, 0.75f, 0.0f);
-	glVertex3f(-0.75f, 0.0f, 0.0f);
-	glVertex3f(0.0f, -0.75f, 0.0f);
-	glVertex3f(0.75f, 0.0f, 0.0f);
-	glEnd();*/
-
-	//----------------------------------------------------------------
-
-	glBegin(GL_QUADS);
+	if (paintingSequenceCounter % 7 == 0) {
+		glBegin(GL_QUADS);
 		glColor3f(getRandomNumer(), getRandomNumer(), getRandomNumer());
 
 		glVertex3f(0.5f, 0.5f, 0.0f);
 		glVertex3f(-0.5f, 0.5f, 0.0f);
 		glVertex3f(-0.5f, -0.5f, 0.0f);
 		glVertex3f(0.5f, -0.5f, 0.0f);
-	glEnd();
+		glEnd();
+		paintingSequenceCounter = 13;
+	}
 
-	/*glBegin(GL_QUADS);
-	glColor3f(getRandomNumer(), getRandomNumer(), getRandomNumer());
-
-	glVertex3f(0.0f, 0.5f, 0.0f);
-	glVertex3f(-0.5f, 0.0f, 0.0f);
-	glVertex3f(0.0f, -0.5f, 0.0f);
-	glVertex3f(0.5f, 0.0f, 0.0f);
-	glEnd();*/
-
-//----------------------------------------------------------------
-	glBegin(GL_QUADS);
+	if (paintingSequenceCounter % 13 == 0) {
+		glBegin(GL_QUADS);
 		glColor3f(getRandomNumer(), getRandomNumer(), getRandomNumer());
 
 		glVertex3f(0.25f, 0.25f, 0.0f);
 		glVertex3f(-0.25f, 0.25f, 0.0f);
 		glVertex3f(-0.25f, -0.25f, 0.0f);
 		glVertex3f(0.25f, -0.25f, 0.0f);
-	glEnd();
-
-	glBegin(GL_QUADS);
+		glEnd();
+		paintingSequenceCounter = 17;
+	}
+	if (paintingSequenceCounter % 17 == 0) {
+		glBegin(GL_QUADS);
 		glColor3f(getRandomNumer(), getRandomNumer(), getRandomNumer());
 
 		glVertex3f(0.0f, 0.25f, 0.0f);
 		glVertex3f(-0.25f, 0.0f, 0.0f);
 		glVertex3f(0.0f, -0.25f, 0.0f);
 		glVertex3f(0.25f, 0.0f, 0.0f);
-	glEnd();
-
+		glEnd();
+		paintingSequenceCounter = 3;
+	}
 	SwapBuffers(ghdc);
-
 }
 
 void resize(int windth, int height)
