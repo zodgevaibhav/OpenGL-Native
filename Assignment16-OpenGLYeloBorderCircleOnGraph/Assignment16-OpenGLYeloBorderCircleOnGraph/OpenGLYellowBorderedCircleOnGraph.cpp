@@ -1,6 +1,7 @@
 #include<windows.h>
 #include<gl/GL.h>
 #include<math.h>
+
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
@@ -12,10 +13,12 @@ HBRUSH hBrushForBColor;
 HWND ghwnd = NULL;
 HDC ghdc = NULL;
 HGLRC ghrc = NULL;
+HANDLE hFile = NULL;
 
 GLclampf red = 0.0f;
 GLclampf green = 0.0f;
 GLclampf blue = 0.0f;
+
 
 int paintingSequenceCounter = 3;
 
