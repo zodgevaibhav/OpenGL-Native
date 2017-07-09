@@ -204,7 +204,6 @@ void display(void)
 	glLineWidth(3);
 	glBegin(GL_LINES);
 	glColor3f(0.0f, 1.0f, 0.0f);
-
 	glVertex3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(0.0f, -1.0f, 0.0f);
 
