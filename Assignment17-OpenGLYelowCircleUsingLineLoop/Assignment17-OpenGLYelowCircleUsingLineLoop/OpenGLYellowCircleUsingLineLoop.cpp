@@ -31,6 +31,7 @@ void initialize(void);
 void uninitialize(void);
 void display(void);
 void ToggleFullscreen(void);
+void drawCircleUsingLines(void);
 GLclampf getRandomNumer(void);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpszcmdLine, int nCmdShow)
@@ -245,20 +246,7 @@ void display(void)
 
 		glEnd();
 	}
-
-
-	glBegin(GL_LINE_LOOP);
-	const float PI = 3.14;
-	float angle = 0.0f;
-	GLint circle_points = 100;
-	glColor3f(1.0f, 1.0f, 0.0f);
-	for (int i = 0;i < circle_points;i++)
-	{
-		angle = 2 * PI * i/circle_points;
-		glVertex3f(cos(angle), sin(angle), 0.0f);
-	}
-		glEnd();
-
+	drawCircleUsingLines();
 	SwapBuffers(ghdc);
 }
 
@@ -375,4 +363,21 @@ GLclampf getRandomNumer() {
 	else {
 		return 0.0f;
 	}
+}
+
+void drawCircleUsingLines() {
+
+
+	glBegin(GL_LINE_LOOP);
+	const float PI = 3.14;
+	float angle = 0.0f;
+	GLint circle_points = 100;
+	glColor3f(1.0f, 1.0f, 0.0f);
+	for (int i = 0;i < circle_points;i++)
+	{
+		angle = 2 * PI * i / circle_points;
+		glVertex3f(cos(angle), sin(angle), 0.0f);
+	}
+	glEnd();
+
 }

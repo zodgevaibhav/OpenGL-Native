@@ -31,6 +31,7 @@ void initialize(void);
 void uninitialize(void);
 void display(void);
 void ToggleFullscreen(void);
+void drawTriangle(void);
 GLclampf getRandomNumer(void);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpszcmdLine, int nCmdShow)
@@ -245,23 +246,7 @@ void display(void)
 
 		glEnd();
 	}
-
-	glLineWidth(2);
-	glBegin(GL_LINES);
-
-	glColor3f(1.0f, 1.0f, 0.0f);
-
-	glVertex3f(0.0f, 0.6f, 0.0f);
-	glVertex3f(-0.6f, -0.6f, 0.0f);
-	
-	glVertex3f(-0.6f, -0.6f, 0.0f);
-	glVertex3f(0.6f, -0.6f, 0.0f);
-
-	glVertex3f(0.6f, -0.6f, 0.0f);
-	glVertex3f(0.0f, 0.6f, 0.0f);
-
-	glEnd();
-
+	drawTriangle();
 	SwapBuffers(ghdc);
 }
 
@@ -378,4 +363,22 @@ GLclampf getRandomNumer() {
 	else {
 		return 0.0f;
 	}
+}
+
+void drawTriangle() {
+	glLineWidth(2);
+	glBegin(GL_LINES);
+
+	glColor3f(1.0f, 1.0f, 0.0f);
+
+	glVertex3f(0.0f, 0.6f, 0.0f);
+	glVertex3f(-0.6f, -0.6f, 0.0f);
+
+	glVertex3f(-0.6f, -0.6f, 0.0f);
+	glVertex3f(0.6f, -0.6f, 0.0f);
+
+	glVertex3f(0.6f, -0.6f, 0.0f);
+	glVertex3f(0.0f, 0.6f, 0.0f);
+
+	glEnd();
 }

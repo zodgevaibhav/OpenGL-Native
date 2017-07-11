@@ -31,6 +31,7 @@ void initialize(void);
 void uninitialize(void);
 void display(void);
 void ToggleFullscreen(void);
+void drawGraphOnWindow(void);
 GLclampf getRandomNumer(void);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpszcmdLine, int nCmdShow)
@@ -200,51 +201,8 @@ void display(void)
 	glClear(GL_COLOR_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-	glLineWidth(1);
-	for (GLfloat i = 0.0;i <= 1.0;i = i + 0.02)
-	{
-		glBegin(GL_LINES);
-		glColor3f(0.0f, 1.0f, 0.0f);
-
-		glVertex3f(i, 1.0f, 0.0f);
-		glVertex3f(i, -1.0f, 0.0f);
-
-		glEnd();
-	}
-
-	for (GLfloat i = 0.0;i <= 1.0;i = i + 0.02)
-	{
-		glBegin(GL_LINES);
-		glColor3f(0.0f, 0.0f, 1.0f);
-
-		glVertex3f(-i, 1, 0.0f);
-		glVertex3f(-i, -1, 0.0f);
-
-		glEnd();
-	}
-
-	for (GLfloat i = 0.0;i <= 1.0;i = i + 0.02)
-	{
-		glBegin(GL_LINES);
-		glColor3f(0.0f, 0.0f, 1.0f);
-
-		glVertex3f(-1.0f, i, 0.0f);
-		glVertex3f(1.0f, i, 0.0f);
-
-		glEnd();
-	}
-
-	for (GLfloat i = 0.0;i <= 1.0;i = i + 0.02)
-	{
-		glBegin(GL_LINES);
-		glColor3f(1.0f, 0.0f, 0.0f);
-
-		glVertex3f(-1.0f, -(i), 0.0f);
-		glVertex3f(1.0f, -(i), 0.0f);
-
-		glEnd();
-	}
+	
+	drawGraphOnWindow();
 
 	SwapBuffers(ghdc);
 }
@@ -361,5 +319,52 @@ GLclampf getRandomNumer() {
 	}
 	else {
 		return 0.0f;
+	}
+}
+
+void drawGraphOnWindow() {
+	glLineWidth(1);
+	for (GLfloat i = 0.0;i <= 1.0;i = i + 0.02)
+	{
+		glBegin(GL_LINES);
+		glColor3f(0.0f, 1.0f, 0.0f);
+
+		glVertex3f(i, 1.0f, 0.0f);
+		glVertex3f(i, -1.0f, 0.0f);
+
+		glEnd();
+	}
+
+	for (GLfloat i = 0.0;i <= 1.0;i = i + 0.02)
+	{
+		glBegin(GL_LINES);
+		glColor3f(0.0f, 0.0f, 1.0f);
+
+		glVertex3f(-i, 1, 0.0f);
+		glVertex3f(-i, -1, 0.0f);
+
+		glEnd();
+	}
+
+	for (GLfloat i = 0.0;i <= 1.0;i = i + 0.02)
+	{
+		glBegin(GL_LINES);
+		glColor3f(0.0f, 0.0f, 1.0f);
+
+		glVertex3f(-1.0f, i, 0.0f);
+		glVertex3f(1.0f, i, 0.0f);
+
+		glEnd();
+	}
+
+	for (GLfloat i = 0.0;i <= 1.0;i = i + 0.02)
+	{
+		glBegin(GL_LINES);
+		glColor3f(1.0f, 0.0f, 0.0f);
+
+		glVertex3f(-1.0f, -(i), 0.0f);
+		glVertex3f(1.0f, -(i), 0.0f);
+
+		glEnd();
 	}
 }

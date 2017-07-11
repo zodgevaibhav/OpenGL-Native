@@ -1,0 +1,3 @@
+﻿  ConrnFlowerColorRectangle.cpp
+c:\users\vzodge\documents\vaibhav\git\win32sdk\assignment20-singlecolortrianglecornflower\assignment20-singlecolortrianglecornflower\conrnflowercolorrectangle.cpp(335): warning C4244: 'return': conversion from 'double' to 'GLfloat', possible loss of data
+  Assignment20-SingleColorTriangleCornFlower.vcxproj -> C:\Users\vzodge\Documents\Vaibhav\git\Win32SDK\Assignment20-SingleColorTriangleCornFlower\Debug\Assignment20-SingleColorTriangleCornFlower.exe
