@@ -1,0 +1,7 @@
+﻿  OglConcentricRectangleEquiSpaced.cpp
+c:\users\vzodge\documents\vaibhav\git\win32sdk\assignment23-oglconcentricrectanglequispace\assignment23-oglconcentricrectanglequispace\oglconcentricrectangleequispaced.cpp(210): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+c:\users\vzodge\documents\vaibhav\git\win32sdk\assignment23-oglconcentricrectanglequispace\assignment23-oglconcentricrectanglequispace\oglconcentricrectangleequispaced.cpp(355): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\vzodge\documents\vaibhav\git\win32sdk\assignment23-oglconcentricrectanglequispace\assignment23-oglconcentricrectanglequispace\oglconcentricrectangleequispaced.cpp(366): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\vzodge\documents\vaibhav\git\win32sdk\assignment23-oglconcentricrectanglequispace\assignment23-oglconcentricrectanglequispace\oglconcentricrectangleequispaced.cpp(377): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\vzodge\documents\vaibhav\git\win32sdk\assignment23-oglconcentricrectanglequispace\assignment23-oglconcentricrectanglequispace\oglconcentricrectangleequispaced.cpp(388): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  Assignment23-OglConcentricRectanglEquiSpace.vcxproj -> C:\Users\vzodge\Documents\Vaibhav\git\Win32SDK\Assignment23-OglConcentricRectanglEquiSpace\Debug\Assignment23-OglConcentricRectanglEquiSpace.exe

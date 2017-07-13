@@ -376,6 +376,6 @@ void drawCircleUsingPoints() {
 
 	glColor3f(1.0f, 1.0f, 0.0f);
 	for (float angle = 0.0f;angle < 2.0f *PI;angle = angle + 0.0001f)
-		glVertex3f(cos(angle), sin(angle), 0.0f);
+		glVertex3f(cos(angle)/2, sin(angle), 0.0f);
 	glEnd();
 }

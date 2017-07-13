@@ -203,20 +203,25 @@ void display(void)
 	glClear(GL_COLOR_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glLineWidth(10.0);
-	
-//	drawGraphOnWindow();
-	glBegin(GL_TRIANGLES);
-	GLfloat size = 1.0f, reduceBy=0.1f,origSize=0.8,origReduceBy=0.0f;
+	glLineWidth(3);
+
+	//	drawGraphOnWindow();
+	glBegin(GL_LINES);
+	GLfloat size = 1.0f, reduceBy = 0.1f, origSize = 0.8, origReduceBy = 0.0f;
 	for (int i = 0;i < 9;i++)
 	{
-		getRgbColor(i+1, &red, &green, &blue);
+		getRgbColor(i + 1, &red, &green, &blue);
 		size = size - reduceBy;
 		glColor3f(red, green, blue);
 
-		glVertex3f(0.0f, size/2,0.0f);
-		glVertex3f(-size/2, -size / 2, 0.0f);
-		glVertex3f(size/2, -size/2, 0.0f);
+		glVertex3f(0.0f, size / 2, 0.0f);
+		glVertex3f(-size / 2, (-size / 2), 0.0f);
+
+		glVertex3f(-size / 2, (-size / 2), 0.0f);
+		glVertex3f(size / 2, (-size / 2), 0.0f);
+
+		glVertex3f(size / 2, (-size / 2), 0.0f);
+		glVertex3f(0.0f, size / 2, 0.0f);
 
 		origReduceBy = origReduceBy + reduceBy;
 	}
