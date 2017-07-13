@@ -61,7 +61,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpszcmdLi
 
 	hwnd = CreateWindowEx(WS_EX_APPWINDOW,
 		szAppName,
-		TEXT("OpenGL Window"),
+		TEXT("Assignment24-OglConcentricCircleEquiSpaced"),
 		WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_VISIBLE,
 		0,
 		0,
