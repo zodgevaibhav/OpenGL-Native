@@ -33,6 +33,7 @@ void uninitialize(void);
 void display(void);
 void ToggleFullscreen(void);
 void drawTriangle(void);
+void drawFace(void);
 GLclampf getRandomNumer(void);
 GLfloat left = -1.0f, right = 1.0f, bottom = -1.0f, top = 1.0f, nearValue = -1.0f, farValue= 1.0f;
 
@@ -229,25 +230,26 @@ void display(void)
 	glLoadIdentity();
 	glOrtho(left, right, bottom, top, nearValue, farValue);
 
+
+
 	glPointSize(2.0f);
 	glBegin(GL_POINTS);
 	glColor3f(1.0f, 0.0f, 0.0f);
 
 	for (GLfloat angle = 0.05f;angle < 3.14 * 1;angle = angle + 0.0005f)
 	{
-		
+
 		//************************ Cap *****************************
 		glColor3f(1.0f, 1.0f, 1.0f);
 		glVertex3f(cos(angle) / 3.14, sin(angle), 0.0f);
 		glVertex3f(cos(angle) / 3.14, sin(angle) / 0.95, 0.0f);
 		glVertex3f(cos(angle) / 3.14, sin(angle) / 1.1, 0.0f);
-		
+
 		//************************ Face *****************************
 		glColor3f(1.0f, 1.0f, 1.0f);
 		glVertex3f(cos(angle) / 3.14, sin(angle) / 3.14, 0.0f);
 		glVertex3f(cos(angle-3.14f)/3.14, sin(angle-3.14f) /3.14, 0.0f);
 		
-
 		//************************ Ears *****************************
 		glColor3f(1.0f, 1.0f, 1.0f);
 		glVertex3f(-0.38f + (cos(angle*2 - 3.14f)  / (5 * 3.14)), sin(angle*2 - 3.14f) / (5 * 3.14), 0.0f);
@@ -274,11 +276,9 @@ void display(void)
 		glVertex3f((cos(angle - 3.14f) / (2 * 3.14)), -0.35 + sin(angle - 3.14f) / (2 * 3.14), 0.0f);
 		glColor3f(1.0f, 1.0f, 1.0f);
 		glVertex3f((cos(angle - 3.14f) / (1.5 * 3.14)), -0.35 + sin(angle - 3.14f) / (1.5 * 3.14), 0.0f);
+		
 	}
 	glEnd();
-
-//	glLineWidth(1);
-//	drawTriangle();
 	SwapBuffers(ghdc);
 }
 
@@ -412,5 +412,20 @@ void drawTriangle() {
 	glVertex3f(0.5f, -0.5f, 0.0f);
 	glVertex3f(0.0f, 0.5f, 0.0f);
 
+	glEnd();
+}
+
+void drawFace() {
+	glPointSize(2.0f);
+	glBegin(GL_POINTS);
+	glColor3f(1.0f, 0.0f, 0.0f);
+
+	for (GLfloat angle = 0.05f;angle < 3.14 * 1;angle = angle + 0.0005f)
+	{
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glVertex3f(cos(angle) / 3.14, sin(angle) / 3.14, 0.0f);
+		glVertex3f(cos(angle - 3.14f) / 3.14, sin(angle - 3.14f) / 3.14, 0.0f);
+
+	}
 	glEnd();
 }
