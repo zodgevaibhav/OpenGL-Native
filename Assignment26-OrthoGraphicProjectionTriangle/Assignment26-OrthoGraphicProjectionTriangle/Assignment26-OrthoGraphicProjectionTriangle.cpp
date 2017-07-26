@@ -202,18 +202,28 @@ void display(void)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(50.0f, -50.0f, -50.0f, 50.0f, -50.0f, 50.0f);
-
 	glLineWidth(1);
 	drawTriangle();
 	SwapBuffers(ghdc);
 }
 
-void resize(int windth, int height)
+void resize(int width, int height)
 {
-
 	if (height == 0)
 		height = 1;
-	glViewport(0, 0, (GLsizei)windth, (GLsizei)height);
+
+	/*GLfloat b = -50.0f, t = 50.0f;
+	if (width < height)
+	{
+		b = -50 * (height / width);
+		t = 50 * (height / width);
+	}
+	else {
+		b = -50 * (width / height);
+		t = 50 * (width / height);
+	}*/
+
+	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 }
 
 void uninitialize(void)

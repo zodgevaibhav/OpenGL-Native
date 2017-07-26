@@ -1,209 +1,174 @@
-#include<Windows.h>
+#include <windows.h>
 
-LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-LRESULT CALLBACK WndProc1(HWND, UINT, WPARAM, LPARAM);
-void ToggleFullscreen(void);
-HBRUSH hBrushForBColor;
-DWORD dwStyle;
-WINDOWPLACEMENT wpPrev = { sizeof(WINDOWPLACEMENT) };
-boolean gbFullscreen = false;
-HWND ghwnd;
-HWND hwnd;
-int a = 1, b = 1;
-HWND ghwnd1;
-HWND hwnd1;
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpszcmdLine, int nCmdShow)
+LRESULT CALLBACK windowprocessforwindow1(HWND handleforwindow1, UINT message, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK windowprocessforwindow2(HWND handleforwindow2, UINT message, WPARAM wParam, LPARAM lParam);
+
+bool window1closed = false;
+bool window2closed = false;
+
+int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nShowCmd)
 {
-	WNDCLASSEX wndclass;
+	bool endprogram = false;
+
+	//create window 1
+
+	WNDCLASSEX windowclassforwindow1;
+	ZeroMemory(&windowclassforwindow1, sizeof(WNDCLASSEX));
+	windowclassforwindow1.cbClsExtra = NULL;
+	windowclassforwindow1.cbSize = sizeof(WNDCLASSEX);
+	windowclassforwindow1.cbWndExtra = NULL;
+	windowclassforwindow1.hbrBackground = (HBRUSH)COLOR_WINDOW;
+	windowclassforwindow1.hCursor = LoadCursor(NULL, IDC_ARROW);
+	windowclassforwindow1.hIcon = NULL;
+	windowclassforwindow1.hIconSm = NULL;
+	windowclassforwindow1.hInstance = hInst;
+	windowclassforwindow1.lpfnWndProc = (WNDPROC)windowprocessforwindow1;
+	windowclassforwindow1.lpszClassName = L"windowclass 1";
+	windowclassforwindow1.lpszMenuName = NULL;
+	windowclassforwindow1.style = CS_HREDRAW | CS_VREDRAW;
+
+	if (!RegisterClassEx(&windowclassforwindow1))
+	{
+		int nResult = GetLastError();
+		MessageBox(NULL,
+			L"Window class creation failed",
+			L"Window Class Failed",
+			MB_ICONERROR);
+	}
+
+	HWND handleforwindow1 = CreateWindowEx(NULL,
+		windowclassforwindow1.lpszClassName,
+		L"Parent Window",
+		WS_OVERLAPPEDWINDOW,
+		200,
+		150,
+		640,
+		480,
+		NULL,
+		NULL,
+		hInst,
+		NULL                /* No Window Creation data */
+		);
+
+	if (!handleforwindow1)
+	{
+		int nResult = GetLastError();
+
+		MessageBox(NULL,
+			L"Window creation failed",
+			L"Window Creation Failed",
+			MB_ICONERROR);
+	}
+
+	ShowWindow(handleforwindow1, nShowCmd);
+
+	// create window 2
+
+	WNDCLASSEX windowclassforwindow2;
+	ZeroMemory(&windowclassforwindow2, sizeof(WNDCLASSEX));
+	windowclassforwindow2.cbClsExtra = NULL;
+	windowclassforwindow2.cbSize = sizeof(WNDCLASSEX);
+	windowclassforwindow2.cbWndExtra = NULL;
+	windowclassforwindow2.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	windowclassforwindow2.hCursor = LoadCursor(NULL, IDC_ARROW);
+	windowclassforwindow2.hIcon = NULL;
+	windowclassforwindow2.hIconSm = NULL;
+	windowclassforwindow2.hInstance = hInst;
+	windowclassforwindow2.lpfnWndProc = (WNDPROC)windowprocessforwindow2;
+	windowclassforwindow2.lpszClassName = L"window class2";
+	windowclassforwindow2.lpszMenuName = NULL;
+	windowclassforwindow2.style = CS_HREDRAW | CS_VREDRAW;
+
+	if (!RegisterClassEx(&windowclassforwindow2))
+	{
+		int nResult = GetLastError();
+		MessageBox(NULL,
+			L"Window class creation failed for window 2",
+			L"Window Class Failed",
+			MB_ICONERROR);
+	}
+
+	HWND handleforwindow2 = CreateWindowEx(NULL,
+		windowclassforwindow2.lpszClassName,
+		L"Child Window",
+		WS_OVERLAPPEDWINDOW,
+		200,
+		150,
+		640,
+		480,
+		NULL,
+		NULL,
+		hInst,
+		NULL);
+
+	if (!handleforwindow2)
+	{
+		int nResult = GetLastError();
+
+		MessageBox(NULL,
+			L"Window creation failed",
+			L"Window Creation Failed",
+			MB_ICONERROR);
+	}
+
+	ShowWindow(handleforwindow2, nShowCmd);
+	SetParent(handleforwindow2, handleforwindow1);
+	DWORD dwStyle = GetWindowLong(handleforwindow2, GWL_STYLE);
+	SetWindowLong(handleforwindow2, GWL_STYLE, dwStyle & ~WS_OVERLAPPEDWINDOW);
+
 	MSG msg;
-	TCHAR szAppName[] = TEXT("MyApp");
-
-	WNDCLASSEX wndclass1;
-	MSG msg1;
-	TCHAR szAppName1[] = TEXT("MyApp1");
-
-	wndclass.cbSize = sizeof(WNDCLASSEX);
-	wndclass.style = CS_HREDRAW | CS_VREDRAW;
-	wndclass.cbClsExtra = 0;
-	wndclass.cbWndExtra = 0;
-	wndclass.lpfnWndProc = WndProc;
-	wndclass.hInstance = hInstance;
-	wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wndclass.hbrBackground = (HBRUSH)30;//GetStockObject(BLACK_BRUSH);
-	wndclass.lpszClassName = szAppName;
-	wndclass.lpszMenuName = NULL;
-	wndclass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
-
-	RegisterClassEx(&wndclass);
-
-	hwnd = CreateWindow(szAppName,
-		TEXT("My Application"),
-		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
-		NULL,
-		NULL,
-		hInstance,
-		NULL);
-	ShowWindow(hwnd, nCmdShow);
-	UpdateWindow(hwnd);
-
-
-	wndclass1.cbSize = sizeof(WNDCLASSEX);
-	wndclass1.style = CS_HREDRAW | CS_VREDRAW;
-	wndclass1.cbClsExtra = 0;
-	wndclass1.cbWndExtra = 0;
-	wndclass1.lpfnWndProc = WndProc1;
-	wndclass1.hInstance = hInstance;
-	wndclass1.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	wndclass1.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wndclass1.hbrBackground = (HBRUSH)30;//GetStockObject(BLACK_BRUSH);
-	wndclass1.lpszClassName = szAppName;
-	wndclass1.lpszMenuName = NULL;
-	wndclass1.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
-
-	RegisterClassEx(&wndclass1);
-
-	hwnd1 = CreateWindow(szAppName,
-		TEXT("My Application1"),
-		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT, 
-		NULL,
-		NULL,
-		hInstance,
-		NULL);
-	ShowWindow(hwnd1, nCmdShow);
-	UpdateWindow(hwnd1);
-
-
-
-
-	while (GetMessage(&msg, NULL, 0, 0))
-	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-		InvalidateRect(hwnd1, NULL, NULL); 
+	ZeroMemory(&msg, sizeof(MSG));
+	while (endprogram == false) {
+		if (GetMessage(&msg, NULL, 0, 0));
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+		if (window1closed == true && window2closed == true) {
+			endprogram = true;
+		}
 	}
-	return ((int)msg.wParam);
+	MessageBox(NULL,
+		L"Both Windows are closed.  Program will now close.",
+		L"",
+		MB_ICONINFORMATION);
+	return 0;
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK windowprocessforwindow1(HWND handleforwindow, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	switch (iMsg)
+	switch (msg)
 	{
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
+	case WM_DESTROY: {
+		MessageBox(NULL,
+			L"Window 1 closed",
+			L"Message",
+			MB_ICONINFORMATION);
 
-	case WM_KEYDOWN:
-		switch (wParam)
-		{
-		case VK_ESCAPE:
-			DestroyWindow(hwnd);
-			break;
-		case 0x46: //for 'f' or 'F'
-			if (gbFullscreen == false)
-			{
-				ToggleFullscreen();
-				gbFullscreen = true;
-			}
-			else
-			{
-				ToggleFullscreen();
-				gbFullscreen = false;
-			}
-			break;
-		default:
-			break;
-		}
-	case WM_PAINT:
-		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(hwnd, &ps);
-		FillRect(hdc, &ps.rcPaint, (HBRUSH)(hBrushForBColor));
-		EndPaint(hwnd, &ps);
-		break;
+		window1closed = true;
+		return 0;
 	}
-	return (DefWindowProc(hwnd, iMsg, wParam, lParam));
+					 break;
+	}
+
+	return DefWindowProc(handleforwindow, msg, wParam, lParam);
 }
 
-LRESULT CALLBACK WndProc1(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK windowprocessforwindow2(HWND handleforwindow, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	switch (iMsg)
+	switch (msg)
 	{
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
+	case WM_DESTROY: {
+		MessageBox(NULL,
+			L"Window 2 closed",
+			L"Message",
+			MB_ICONINFORMATION);
 
-	case WM_KEYDOWN:
-		switch (wParam)
-		{
-		case VK_ESCAPE:
-			DestroyWindow(hwnd);
-			break;
-		case 0x46: //for 'f' or 'F'
-			if (gbFullscreen == false)
-			{
-				ToggleFullscreen();
-				gbFullscreen = true;
-			}
-			else
-			{
-				ToggleFullscreen();
-				gbFullscreen = false;
-			}
-			break;
-		default:
-			break;
-		}
-	case WM_PAINT:
-		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(hwnd1, &ps);
-		FillRect(hdc, &ps.rcPaint, (HBRUSH)(hBrushForBColor));
-		EndPaint(hwnd1, &ps);
-		a = a + 100;
-		b = b + 100;
-		SetWindowPos(hwnd1, NULL, a, b, 800, 600, 0);
-		InvalidateRect(hwnd1, NULL, NULL);
-		break;
-
+		window2closed = true;
+		return 0;
 	}
-	return (DefWindowProc(hwnd, iMsg, wParam, lParam));
-}
-
-//ToggleFullscreen()
-void ToggleFullscreen(void)
-{
-	//variable declarations
-	MONITORINFO mi;
-
-	//code
-	if (gbFullscreen == false)
-	{
-		dwStyle = GetWindowLong(hwnd, GWL_STYLE);
-		if (dwStyle & WS_OVERLAPPEDWINDOW)
-		{
-			mi = { sizeof(MONITORINFO) };
-			if (GetWindowPlacement(hwnd, &wpPrev) && GetMonitorInfo(MonitorFromWindow(hwnd, MONITORINFOF_PRIMARY), &mi))
-			{
-				SetWindowLong(hwnd, GWL_STYLE, dwStyle & ~WS_OVERLAPPEDWINDOW);
-				SetWindowPos(hwnd, HWND_TOP, mi.rcMonitor.left, mi.rcMonitor.top, mi.rcMonitor.right - mi.rcMonitor.left, mi.rcMonitor.bottom - mi.rcMonitor.top, SWP_NOZORDER | SWP_FRAMECHANGED);
-			}
-		}
-		ShowCursor(FALSE);
+					 break;
 	}
-	else
-	{
-		//code
-		SetWindowLong(hwnd, GWL_STYLE, dwStyle | WS_OVERLAPPEDWINDOW);
-		SetWindowPlacement(hwnd, &wpPrev);
-		SetWindowPos(hwnd, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOOWNERZORDER | SWP_NOZORDER | SWP_FRAMECHANGED);
 
-		ShowCursor(TRUE);
-	}
+	return DefWindowProc(handleforwindow, msg, wParam, lParam);
 }
