@@ -202,7 +202,7 @@ void display(void)
 	glClear(GL_COLOR_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	
+
 	drawTriangle();
 	SwapBuffers(ghdc);
 }
@@ -211,22 +211,12 @@ void resize(int width, int height)
 {
 	if (height == 0)
 		height = 1;
-/*
-	GLfloat b = -50.0f, t = 50.0f;
-	if (width < height)
-	{
-	b = -50.0f * (GLfloat)(height / width);
-	t = 50.0f * (GLfloat)(height / width);
-	}
-	else {
-	b = -50.0f * (width / height);
-	t = 50.0f * (width / height);
-	}
-	*/
-	glOrtho(-50.0f, 50.0f, -50.0f, 50.0f, -50.0f, 50.0f);
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
-	
-	
+
+	if (width < height)
+		glOrtho(-50.0f, 50.0f, -50.0f*(GLfloat)height / (GLfloat)width, 50.0f*(GLfloat)height / (GLfloat)width, -50.0f, 50.0f);
+	else
+		glOrtho(-50.0f, 50.0f, -50.0f*(GLfloat)width / (GLfloat)height, 50.0f*(GLfloat)width / (GLfloat)height, -50.0f, 50.0f);
 
 }
 
@@ -295,7 +285,7 @@ void initialize(void)
 	}
 	resize(WIN_WIDTH, WIN_HEIGHT);
 	glClearColor(red, green, blue, 0.0f);
-	
+
 }
 
 void ToggleFullscreen(void)
@@ -333,7 +323,6 @@ void ToggleFullscreen(void)
 void drawTriangle() {
 	glLineWidth(2);
 
-	glTranslatef(0.0f, 0.0f, -3.0f);
 	glBegin(GL_LINES);
 
 	glColor3f(1.0f, 1.0f, 0.0f);

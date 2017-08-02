@@ -210,7 +210,7 @@ void resize(int windth, int height)
 	glClear(GL_COLOR_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0f, (GLfloat)windth / (GLfloat)height, 0.1f, 100.0f);
+	gluPerspective(0.0f, (GLfloat)windth / (GLfloat)height, 0.1f, 100.0f);
 
 	if (height == 0)
 		height = 1;
@@ -327,6 +327,7 @@ GLclampf getRandomNumer() {
 
 void drawTriangle() {
 	glLineWidth(2);
+
 	glBegin(GL_LINES);
 
 	glColor3f(1.0f, 1.0f, 0.0f);

@@ -334,6 +334,9 @@ void drawTriangle() {
 
 	glRotatef(angle, 0.0f, 1.0f, 0.0f);
 	angle = angle + 0.1f;
+	if (angle > 360.0f)
+		angle = 0.0f;
+
 	glBegin(GL_LINES);
 
 	glColor3f(1.0f, 0.0f, 0.0f);

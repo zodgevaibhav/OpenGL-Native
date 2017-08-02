@@ -60,9 +60,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	RegisterClassEx(&wndclass);
 
 	//Creation of the actual window
+	TCHAR szExeFileName[MAX_PATH];
+	GetModuleFileName(NULL, szExeFileName, MAX_PATH);
 	hwnd = CreateWindowEx(WS_EX_APPWINDOW,
 		szClassName,
-		TEXT("OpenGL FFP - PYRAMID ROTATION"),
+		szExeFileName,
 		WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE,
 		0,
 		0,
@@ -236,7 +238,7 @@ void display(void)
 	glLoadIdentity();
 
 	glTranslatef(0.0f, 0.0f, -6.0f);
-	glRotatef(angle_Pyramid, 0.0f, 1.0f, 0.0f);
+	glRotatef(angle_Pyramid, 1.0f, 1.0f, 1.0f);
 	glBegin(GL_TRIANGLES);
 	//FRONT FACE
 	glColor3f(1.0f, 0.0f, 0.0f); //red
@@ -298,7 +300,7 @@ void resize(int width, int height)
 void update(void)
 {
 	//code
-	angle_Pyramid = angle_Pyramid + 0.5f;
+	angle_Pyramid = angle_Pyramid + 0.1f;
 	if (angle_Pyramid >= 360.0f)
 		angle_Pyramid = 0.0f;
 }
