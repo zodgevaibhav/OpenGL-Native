@@ -237,7 +237,7 @@ void display(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -6.0f);
+	glTranslatef(0.0f, 0.0f, -5.0f);
 	glRotatef(angle_Pyramid, 0.0f, 1.0f, 0.0f);
 	glBegin(GL_TRIANGLES);
 	//FRONT FACE

@@ -239,6 +239,8 @@ void display(void)
 
 	glTranslatef(0.0f, 0.0f, -6.0f);
 	glRotatef(angle_Pyramid, 1.0f, 1.0f, 1.0f);
+	glRotatef(1.0f, angle_Pyramid, 1.0f, 1.0f);
+	glRotatef(1.0f, 1.0f, angle_Pyramid, 1.0f);
 	glBegin(GL_QUADS);
 	//TOP FACE
 	glColor3f(1.0f, 0.0f, 0.0f); //RED

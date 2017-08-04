@@ -364,17 +364,17 @@ void drawRectangle() {
 	glTranslatef(0.50f, 0.0f, -0.6f);
 	glRotatef(angle, 1.0f, 0.0f, 0.0f);
 	updateAngle();
-	glBegin(GL_LINES);
+	glBegin(GL_QUADS);
 	glColor3f(1.0f, 0.0f, 0.0f);
 
 	glVertex3f(0.45f, 0.45f, 0.0f);
-	glVertex3f(-0.45f, 0.45f, 0.0f);
+	//glVertex3f(-0.45f, 0.45f, 0.0f);
 
 	glVertex3f(-0.45f, 0.45f, 0.0f);
-	glVertex3f(-0.45f, -0.45f, 0.0f);
+//	glVertex3f(-0.45f, -0.45f, 0.0f);
 
 	glVertex3f(-0.45f, -0.45f, 0.0f);
-	glVertex3f(0.45f, -0.45f, 0.0f);
+//	glVertex3f(0.45f, -0.45f, 0.0f);
 
 	glVertex3f(0.45f, -0.45f, 0.0f);
 	glVertex3f(0.45f, 0.45f, 0.0f);

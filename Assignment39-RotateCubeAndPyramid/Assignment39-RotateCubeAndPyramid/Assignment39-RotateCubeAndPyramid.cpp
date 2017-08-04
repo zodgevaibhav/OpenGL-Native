@@ -239,6 +239,7 @@ void display(void)
 
 	glTranslatef(-2.0f, 0.0f, -6.0f);
 	glRotatef(angle_Pyramid, 0.0f, 1.0f, 0.0f);
+
 	glBegin(GL_TRIANGLES);
 	//FRONT FACE
 	glColor3f(1.0f, 0.0f, 0.0f); //red
@@ -283,7 +284,8 @@ void display(void)
 	//*********************************************************************************************
 
 	glLoadIdentity();
-	glTranslatef(2.0f, 0.0f, -8.0f);
+	glTranslatef(2.0f, 0.0f, -6.0f);
+	glScalef(0.75f, 0.75f, 0.75f);
 	glRotatef(angle_Pyramid, 1.0f, 1.0f, 1.0f);
 	glBegin(GL_QUADS);
 	//TOP FACE
