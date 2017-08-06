@@ -22,7 +22,8 @@ void drawCircleUsingPoints(GLfloat , int );
 bool gbEscapeKeyIsPressed = false;
 bool gbIsActiveWindow = false;
 bool gbFullscreen = false;
-
+void drawTriangle(void);
+void drawCube(void);
 GLfloat angle_Pyramid = 0.0f;
 
 //WinMain() - Entry-Point Function
@@ -227,111 +228,18 @@ void initialize(void)
 
 void display(void)
 {
-	//function prototype
+	
 	void DrawMultiColoredTriangle(void);
 
-	//code
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//TRIANGLE
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	glTranslatef(0.0f, 0.0f, -6.0f);
-	glRotatef(angle_Pyramid, 0.0f, 1.0f, 0.0f);
-	glBegin(GL_TRIANGLES);
-	//FRONT FACE
-	glColor3f(1.0f, 0.0f, 0.0f); //red
-	glVertex3f(0.0f, 1.0f, 0.0f); //apex
-
-	glColor3f(0.0f, 1.0f, 0.0f); //green
-	glVertex3f(-1.0f, -1.0f, 1.0f); //left-corner of front face
-
-	glColor3f(0.0f, 0.0f, 1.0f); //blue
-	glVertex3f(1.0f, -1.0f, 1.0f); //right-corner of front face
-
-								   //RIGHT FACE
-	glColor3f(1.0f, 0.0f, 0.0f); //red
-	glVertex3f(0.0f, 1.0f, 0.0f); //apex
-
-	glColor3f(0.0f, 0.0f, 1.0f); //blue
-	glVertex3f(1.0f, -1.0f, 1.0f); //left-corner of right face
-
-	glColor3f(0.0f, 1.0f, 0.0f); //green
-	glVertex3f(1.0f, -1.0f, -1.0f); //right-corner of right face
-
-									//BACK FACE
-	glColor3f(1.0f, 0.0f, 0.0f); //red
-	glVertex3f(0.0f, 1.0f, 0.0f); //apex
-
-	glColor3f(0.0f, 1.0f, 0.0f); //green
-	glVertex3f(1.0f, -1.0f, -1.0f); //left-corner of back face
-
-	glColor3f(0.0f, 0.0f, 1.0f); //blue
-	glVertex3f(-1.0f, -1.0f, -1.0f); //right-corner of back face
-
-									 //LEFT FACE
-	glColor3f(1.0f, 0.0f, 0.0f); //red
-	glVertex3f(0.0f, 1.0f, 0.0f); //apex
-
-	glColor3f(0.0f, 0.0f, 1.0f); //blue
-	glVertex3f(-1.0f, -1.0f, -1.0f); //left-corner of left face
-
-	glColor3f(0.0f, 1.0f, 0.0f); //green
-	glVertex3f(-1.0f, -1.0f, 1.0f); //right-corner of left face
-	glEnd();
-	//*********************************************************************************************
-
-	//glLoadIdentity();
 	glTranslatef(0.0f, 0.0f, -3.0f);
-	glRotatef(angle_Pyramid, 1.0f, 1.0f, 1.0f);
-	glBegin(GL_QUADS);
-	//TOP FACE
-	glColor3f(1.0f, 0.0f, 0.0f); //RED
-	glVertex3f(0.5f, 0.5f, -0.5f);  //right-top corner of top face
-	glVertex3f(-0.5f, 0.5f, -0.5f); //left-top corner of top face
-	glVertex3f(-0.5f, 0.5f, 0.5f); //left-bottom corner of top face
-	glVertex3f(0.5f, 0.5f, 0.5f); //right-bottom corner of top face
+	drawTriangle();
+	drawCube();
+	//drawCircleUsingPoints(3.14 / (2.0f / 3), 2);
+	//drawCube();
 
-								  //BOTTOM FACE
-	glColor3f(0.0f, 1.0f, 0.0f); //GREEN
-	glVertex3f(0.5f, -0.5f, -0.5f); //right-top corner of bottom face
-	glVertex3f(-0.5f, -0.5f, -0.5f); //left-top corner of bottom face
-	glVertex3f(-0.5f, -0.5f, 0.5f); //left-bottom corner of bottom face
-	glVertex3f(0.5f, -0.5f, 0.5f); //right-bottom corner of bottom face
-
-								   //FRONT FACE
-	glColor3f(0.0f, 0.0f, 1.0f); //BLUE
-	glVertex3f(0.5f, 0.5f, 0.5f); //right-top corner of front face
-	glVertex3f(-0.5f, 0.5f, 0.5f); //left-top corner of front face
-	glVertex3f(-0.5f, -0.5f, 0.5f); //left-bottom corner of front face
-	glVertex3f(0.5f, -0.5f, 0.5f); //right-bottom corner of front face
-
-								   //BACK FACE
-	glColor3f(0.0f, 1.0f, 1.0f); //CYAN
-	glVertex3f(0.5f, 0.5f, -0.5f); //right-top of back face
-	glVertex3f(-0.5f, 0.5f, -0.5f); //left-top of back face
-	glVertex3f(-0.5f, -0.5f, -0.5f); //left-bottom of back face
-	glVertex3f(0.5f, -0.5f, -0.5f); //right-bottom of back face
-
-									//RIGHT FACE
-	glColor3f(1.0f, 0.0f, 1.0f); //MAGENTA
-	glVertex3f(0.5f, 0.5f, -0.5f); //right-top of right face
-	glVertex3f(0.5f, 0.5f, 0.5f); //left-top of right face
-	glVertex3f(0.5f, -0.5f, 0.5f); //left-bottom of right face
-	glVertex3f(0.5f, -0.5f, -0.5f); //right-bottom of right face
-
-									//LEFT FACE
-	glColor3f(1.0f, 1.0f, 0.0f); //YELLOW
-	glVertex3f(-0.5f, 0.5f, 0.5f); //right-top of left face
-	glVertex3f(-0.5f, 0.5f, -0.5f); //left-top of left face
-	glVertex3f(-0.5f, -0.5f, -0.5f); //left-bottom of left face
-	glVertex3f(-0.5f, -0.5f, 0.5f); //right-bottom of left face
-	glEnd();
-
-	//************************************************************************************
-	drawCircleUsingPoints(3.14 / (2.0f / 3), 2);
-
+	
 	SwapBuffers(ghdc);
 }
 
@@ -429,12 +337,16 @@ void uninitialize(void)
 }
 
 void drawCircleUsingPoints(GLfloat reduaceRadiosBy, int colorCode) {
-	glLoadIdentity();
+//	glLoadIdentity();
 	GLfloat num_vertex = 1000.0f, cx = 0.01f, cy = 0.01f, radius = 0.5f;;
 	GLfloat vertex[4];
 	GLfloat texcoord[2];
 	GLfloat PI = 3.1415;
 	const GLfloat delta_angle = 2.0*PI / num_vertex;
+
+
+	glTranslatef(0.0f, 0.0f, -3.0f);
+	glRotatef(angle_Pyramid, 1.0f, 1.0f, 1.0f);
 
 	glBegin(GL_TRIANGLE_FAN);
 
@@ -472,4 +384,106 @@ void drawCircleUsingPoints(GLfloat reduaceRadiosBy, int colorCode) {
 	glEnd();
 
 
+}
+
+
+void drawTriangle()
+{
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glTranslatef(0.0f, 0.0f, -6.0f);
+	glRotatef(angle_Pyramid, 0.0f, 1.0f, 0.0f);
+	glBegin(GL_TRIANGLES);
+	//FRONT FACE
+	glColor3f(1.0f, 0.0f, 0.0f); //red
+	glVertex3f(0.0f, 1.0f, 0.0f); //apex
+
+	glColor3f(0.0f, 1.0f, 0.0f); //green
+	glVertex3f(-1.0f, -1.0f, 1.0f); //left-corner of front face
+
+	glColor3f(0.0f, 0.0f, 1.0f); //blue
+	glVertex3f(1.0f, -1.0f, 1.0f); //right-corner of front face
+
+								   //RIGHT FACE
+	glColor3f(1.0f, 0.0f, 0.0f); //red
+	glVertex3f(0.0f, 1.0f, 0.0f); //apex
+
+	glColor3f(0.0f, 0.0f, 1.0f); //blue
+	glVertex3f(1.0f, -1.0f, 1.0f); //left-corner of right face
+
+	glColor3f(0.0f, 1.0f, 0.0f); //green
+	glVertex3f(1.0f, -1.0f, -1.0f); //right-corner of right face
+
+									//BACK FACE
+	glColor3f(1.0f, 0.0f, 0.0f); //red
+	glVertex3f(0.0f, 1.0f, 0.0f); //apex
+
+	glColor3f(0.0f, 1.0f, 0.0f); //green
+	glVertex3f(1.0f, -1.0f, -1.0f); //left-corner of back face
+
+	glColor3f(0.0f, 0.0f, 1.0f); //blue
+	glVertex3f(-1.0f, -1.0f, -1.0f); //right-corner of back face
+
+									 //LEFT FACE
+	glColor3f(1.0f, 0.0f, 0.0f); //red
+	glVertex3f(0.0f, 1.0f, 0.0f); //apex
+
+	glColor3f(0.0f, 0.0f, 1.0f); //blue
+	glVertex3f(-1.0f, -1.0f, -1.0f); //left-corner of left face
+
+	glColor3f(0.0f, 1.0f, 0.0f); //green
+	glVertex3f(-1.0f, -1.0f, 1.0f); //right-corner of left face
+	glEnd();
+}
+
+void drawCube()
+{
+	//glLoadIdentity();
+	glTranslatef(0.0f, 0.0f, -3.0f);
+	glRotatef(angle_Pyramid, 1.0f, 1.0f, 1.0f);
+
+	glBegin(GL_QUADS);
+	//TOP FACE
+	glColor3f(1.0f, 0.0f, 0.0f); //RED
+	glVertex3f(0.5f, 0.5f, -0.5f);  //right-top corner of top face
+	glVertex3f(-0.5f, 0.5f, -0.5f); //left-top corner of top face
+	glVertex3f(-0.5f, 0.5f, 0.5f); //left-bottom corner of top face
+	glVertex3f(0.5f, 0.5f, 0.5f); //right-bottom corner of top face
+
+								  //BOTTOM FACE
+	glColor3f(0.0f, 1.0f, 0.0f); //GREEN
+	glVertex3f(0.5f, -0.5f, -0.5f); //right-top corner of bottom face
+	glVertex3f(-0.5f, -0.5f, -0.5f); //left-top corner of bottom face
+	glVertex3f(-0.5f, -0.5f, 0.5f); //left-bottom corner of bottom face
+	glVertex3f(0.5f, -0.5f, 0.5f); //right-bottom corner of bottom face
+
+								   //FRONT FACE
+	glColor3f(0.0f, 0.0f, 1.0f); //BLUE
+	glVertex3f(0.5f, 0.5f, 0.5f); //right-top corner of front face
+	glVertex3f(-0.5f, 0.5f, 0.5f); //left-top corner of front face
+	glVertex3f(-0.5f, -0.5f, 0.5f); //left-bottom corner of front face
+	glVertex3f(0.5f, -0.5f, 0.5f); //right-bottom corner of front face
+
+								   //BACK FACE
+	glColor3f(0.0f, 1.0f, 1.0f); //CYAN
+	glVertex3f(0.5f, 0.5f, -0.5f); //right-top of back face
+	glVertex3f(-0.5f, 0.5f, -0.5f); //left-top of back face
+	glVertex3f(-0.5f, -0.5f, -0.5f); //left-bottom of back face
+	glVertex3f(0.5f, -0.5f, -0.5f); //right-bottom of back face
+
+									//RIGHT FACE
+	glColor3f(1.0f, 0.0f, 1.0f); //MAGENTA
+	glVertex3f(0.5f, 0.5f, -0.5f); //right-top of right face
+	glVertex3f(0.5f, 0.5f, 0.5f); //left-top of right face
+	glVertex3f(0.5f, -0.5f, 0.5f); //left-bottom of right face
+	glVertex3f(0.5f, -0.5f, -0.5f); //right-bottom of right face
+
+									//LEFT FACE
+	glColor3f(1.0f, 1.0f, 0.0f); //YELLOW
+	glVertex3f(-0.5f, 0.5f, 0.5f); //right-top of left face
+	glVertex3f(-0.5f, 0.5f, -0.5f); //left-top of left face
+	glVertex3f(-0.5f, -0.5f, -0.5f); //left-bottom of left face
+	glVertex3f(-0.5f, -0.5f, 0.5f); //right-bottom of left face
+	glEnd();
 }
