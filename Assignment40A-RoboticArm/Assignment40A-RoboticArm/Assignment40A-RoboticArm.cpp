@@ -5,11 +5,11 @@ static int shoulder = 0;
 static int elbow = 0;
 
 GLUquadric *quadric = NULL;
-
+void display(void);
+void display1(void);
 int main(int argc, char** argv) {
 	int iScreenWidth = 0, iScreenHeight = 0;
 	//function prototypes
-	void display(void);
 	void resize(int, int);
 	void keyboard(unsigned char, int, int);
 	void mouse(int, int, int, int);
@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
 	glutCreateWindow("Assignment40A-RoboticArmFreeGLUT");
 	initialize();
 
-	glutDisplayFunc(display);
+	glutDisplayFunc(display1);
 	glutReshapeFunc(resize);
 	glutKeyboardFunc(keyboard);
 	glutMouseFunc(mouse);
@@ -68,6 +68,7 @@ void keyboard(unsigned char key, int x, int y) {
 	default:
 		break;
 	}
+	display1();
 }
 
 void mouse(int button, int state, int x, int y) {
@@ -85,11 +86,12 @@ void resize(int width, int height)
 	if (height == 0)
 		height = 1;
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
-
-	glMatrixMode(GL_PROJECTION); // select projection matrix
-	glLoadIdentity(); // reset projection matrix
-
-	gluPerspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f); // calculate the aspect ratio of the view
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(65.0, (GLfloat)width / (GLfloat)height, 1.0, 20.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(0.0, 0.0, -5.0);
 }
 void initialize() {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -104,21 +106,10 @@ void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	
-	////glTranslatef(0.0f, 0.0f, -6.0f);
-	//glLineWidth(3);
-	//glBegin(GL_LINES);
-	//glColor3f(1.0f, 0.0f, 0.0f);
-	//glVertex3f(-1.0f, 0.0f, 0.0f);
-	//glVertex3f(1.0f, 0.0f, 0.0f);
-	//glEnd();
+
 	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-	// view transformation
 	glTranslatef(0.0f, 0.0f, -12.0f);
-
-	// model transformations
 	glPushMatrix();
 
 	glRotatef((GLfloat)shoulder, 0.0f, 0.0f, 1.0f);
@@ -145,5 +136,25 @@ void display() {
 	glutSwapBuffers();
 }
 
-
+void display1()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+	glPushMatrix();
+		glTranslatef(-1.0, 0.0, 0.0);
+		glRotatef((GLfloat)shoulder, 0.0, 0.0, 1.0);
+		glTranslatef(1.0, 0.0, 0.0);
+			glPushMatrix();
+				glScalef(2.0, 0.4, 1.0);
+				glutWireCube(1.0);
+			glPopMatrix();
+		glTranslatef(1.0, 0.0, 0.0);
+		glRotatef((GLfloat)elbow, 0.0, 0.0, 1.0);
+		glTranslatef(1.0, 0.0, 0.0);
+		glPushMatrix();
+			glScalef(2.0, 0.4, 1.0);
+			glutWireCube(1.0);
+		glPopMatrix();
+	glPopMatrix();
+	glutSwapBuffers();
+}
 

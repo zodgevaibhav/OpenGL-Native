@@ -5,11 +5,13 @@ bool gbFullScreen = false;
 static int year = 0;
 static int day = 0;
 
+void display(void);
+void display1(void);
 GLUquadric *quadric = NULL;
 int main(int argc, char** argv) {
 	int iScreenWidth = 0, iScreenHeight = 0;
 	//function prototypes
-	void display(void);
+
 	void resize(int, int);
 	void keyboard(unsigned char, int, int);
 	void mouse(int, int, int, int);
@@ -25,7 +27,7 @@ int main(int argc, char** argv) {
 	glutCreateWindow("Assignment41A-SolarSystemPushMatrix");
 	initialize();
 
-	glutDisplayFunc(display);
+	glutDisplayFunc(display1);
 	glutReshapeFunc(resize);
 	glutKeyboardFunc(keyboard);
 	glutMouseFunc(mouse);
@@ -68,6 +70,7 @@ void keyboard(unsigned char key, int x, int y) {
 	default:
 		break;
 	}
+	display1();
 }
 
 void mouse(int button, int state, int x, int y) {
@@ -84,12 +87,14 @@ void resize(int width, int height)
 {
 	if (height == 0)
 		height = 1;
+	
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
-
-	glMatrixMode(GL_PROJECTION); // select projection matrix
-	glLoadIdentity(); // reset projection matrix
-
-	gluPerspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f); // calculate the aspect ratio of the view
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60.0, (GLfloat)width / (GLfloat)height, 1.0, 20.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt(0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 }
 void initialize() {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -134,5 +139,17 @@ void display() {
 	glutSwapBuffers();
 }
 
-
+void display1()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.0, 1.0, 1.0);
+	glPushMatrix();
+	glutWireSphere(1.0, 20, 16); /* draw sun */
+	glRotatef((GLfloat)year, 0.0, 1.0, 0.0);
+	glTranslatef(2.0, 0.0, 0.0);
+	glRotatef((GLfloat)day, 0.0, 1.0, 0.0);
+	glutWireSphere(0.2, 10, 8); /* draw smaller planet */
+	glPopMatrix();
+	glutSwapBuffers();
+}
 
