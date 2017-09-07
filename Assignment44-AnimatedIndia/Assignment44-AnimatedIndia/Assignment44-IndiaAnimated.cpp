@@ -27,14 +27,16 @@ bool gbEscaseKeyPressed = false;
 bool gbActiveWindow = false;
 
 GLfloat firstIx = -1.0;
-GLfloat nYaxis = 3.0f;
-GLfloat iYaxis = -4.0f;
-GLfloat aXAxis = 6.0f;
-GLfloat aLineXAxisLast = -6.0f;
+GLfloat nYaxis = 5.0f;
+GLfloat iYaxis = -6.0f;
+GLfloat aXAxis = 8.0f;
+GLfloat aLineXAxisLast = -8.0f;
 GLfloat aLineXAxisFirst = -1.0f;
 
 int int165Color = 0;
 int int255Color = 0;
+
+bool blStartD = false;
 
 void resize(int, int);
 void initialize(void);
@@ -232,6 +234,9 @@ void display(void)
 	{
 		nYaxis = nYaxis - 0.01f;
 	}
+	else {
+		blStartD = true;
+	}
 	glBegin(GL_LINES);
 	glColor3f(getRgbToGLfloat(255), getRgbToGLfloat(165), getRgbToGLfloat(0));
 	glVertex3f(-0.6f, nYaxis, 0);
@@ -251,31 +256,34 @@ void display(void)
 	glEnd();
 
 	//**********************************  D   ***********************************************
-	glBegin(GL_LINES);
-	if (int165Color != 165)
-		int165Color=int165Color + 1;
+	if (blStartD)
+	{
+		glBegin(GL_LINES);
+		if (int165Color != 165)
+			int165Color = int165Color + 1;
 
-	if (int255Color != 255)
-		int255Color = int255Color + 1;
+		if (int255Color != 255)
+			int255Color = int255Color + 1;
 
-	glColor3f(getRgbToGLfloat(int255Color), getRgbToGLfloat(int165Color), getRgbToGLfloat(0));
-	glVertex3f(-0.25f, 0.9f, 0);
-	glVertex3f(0.003f, 0.9f, 0);
+		glColor3f(getRgbToGLfloat(int255Color), getRgbToGLfloat(int165Color), getRgbToGLfloat(0));
+		glVertex3f(-0.25f, 0.9f, 0);
+		glVertex3f(0.003f, 0.9f, 0);
 
-	glColor3f(getRgbToGLfloat(int255Color), getRgbToGLfloat(int165Color), getRgbToGLfloat(0));
-	glVertex3f(-0.2f, 0.9f, 0);
-	glColor3f(getRgbToGLfloat(0), getRgbToGLfloat(int255Color), getRgbToGLfloat(0));
-	glVertex3f(-0.2f, -0.9f, 0);
+		glColor3f(getRgbToGLfloat(int255Color), getRgbToGLfloat(int165Color), getRgbToGLfloat(0));
+		glVertex3f(-0.2f, 0.9f, 0);
+		glColor3f(getRgbToGLfloat(0), getRgbToGLfloat(int255Color), getRgbToGLfloat(0));
+		glVertex3f(-0.2f, -0.9f, 0);
 
-	glColor3f(getRgbToGLfloat(int255Color), getRgbToGLfloat(int165Color), getRgbToGLfloat(0));
-	glVertex3f(0.0f, 0.9f, 0);
-	glColor3f(getRgbToGLfloat(0), getRgbToGLfloat(int255Color), getRgbToGLfloat(0));
-	glVertex3f(0.0f, -0.9f, 0);
+		glColor3f(getRgbToGLfloat(int255Color), getRgbToGLfloat(int165Color), getRgbToGLfloat(0));
+		glVertex3f(0.0f, 0.9f, 0);
+		glColor3f(getRgbToGLfloat(0), getRgbToGLfloat(int255Color), getRgbToGLfloat(0));
+		glVertex3f(0.0f, -0.9f, 0);
 
-	glColor3f(getRgbToGLfloat(0), getRgbToGLfloat(int255Color), getRgbToGLfloat(0));
-	glVertex3f(-0.25f, -0.9f, 0);
-	glVertex3f(0.003f, -0.9f, 0);
-	glEnd();
+		glColor3f(getRgbToGLfloat(0), getRgbToGLfloat(int255Color), getRgbToGLfloat(0));
+		glVertex3f(-0.25f, -0.9f, 0);
+		glVertex3f(0.003f, -0.9f, 0);
+		glEnd();
+	}
 
 	//**********************************  I   ***********************************************
 	glBegin(GL_LINES);

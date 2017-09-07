@@ -1,0 +1,20 @@
+﻿# ignore visual studio files
+
+**.vs/
+**.db
+**.opendb
+
+**/Debug/*
+!**/Debug/*.exe
+!**/Debug/*.pdb
+!**/Debug/*.lib
+!**/Debug/*.dll
+
+**/Release/*
+!**/Release/*.exe
+!**/Release/*.pdb
+!**/Release/*.lib
+!**/Release/*.dll
+
+**/Debug/vc140.pdb
+**/Release/vc140.pdb

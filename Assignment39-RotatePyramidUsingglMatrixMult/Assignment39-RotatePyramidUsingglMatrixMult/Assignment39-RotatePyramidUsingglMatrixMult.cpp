@@ -335,7 +335,7 @@ void update(void)
 	if (angle_Pyramid >= 360.0f)
 		angle_Pyramid = 0.0f;
 
-	angle_Pyramid = angle_Pyramid*(3.1415f / 180.0f);
+	//angle_Pyramid = ;
 }
 
 void ToggleFullscreen(void)
@@ -478,12 +478,12 @@ void glXRotateCustom()
 	xRotationMatrix[2] = 0.0f;
 	xRotationMatrix[3] = 0.0f;
 	xRotationMatrix[4] = 0.0f;
-	xRotationMatrix[5] = (GLfloat)cos(angle_Pyramid);
-	xRotationMatrix[6] = (GLfloat)sin(angle_Pyramid);
+	xRotationMatrix[5] = (GLfloat)cos(angle_Pyramid*(3.1415f / 180.0f));
+	xRotationMatrix[6] = (GLfloat)sin(angle_Pyramid*(3.1415f / 180.0f));
 	xRotationMatrix[7] = 0.0f;
 	xRotationMatrix[8] = 0.0f;
-	xRotationMatrix[9] = -sin(angle_Pyramid);
-	xRotationMatrix[10] = cos(angle_Pyramid);
+	xRotationMatrix[9] = -sin(angle_Pyramid*(3.1415f / 180.0f));
+	xRotationMatrix[10] = cos(angle_Pyramid*(3.1415f / 180.0f));
 	xRotationMatrix[11] = 0.0f;
 	xRotationMatrix[12] = 0.0f;
 	xRotationMatrix[13] = 0.0f;
@@ -493,17 +493,17 @@ void glXRotateCustom()
 
 void glYRotateCustom()
 {
-	yRotationMatrix[0] = (GLfloat)cos(angle_Pyramid);
+	yRotationMatrix[0] = (GLfloat)cos(angle_Pyramid*(3.1415f / 180.0f));
 	yRotationMatrix[1] = 0.0f;
-	yRotationMatrix[2] = (GLfloat)-sin(angle_Pyramid);
+	yRotationMatrix[2] = (GLfloat)-sin(angle_Pyramid*(3.1415f / 180.0f));
 	yRotationMatrix[3] = 0.0f;
 	yRotationMatrix[4] = 0.0f;
 	yRotationMatrix[5] = 1.0f;
 	yRotationMatrix[6] = 0.0f;
 	yRotationMatrix[7] = 0.0f;
-	yRotationMatrix[8] = (GLfloat)sin(angle_Pyramid);
+	yRotationMatrix[8] = (GLfloat)sin(angle_Pyramid*(3.1415f / 180.0f));
 	yRotationMatrix[9] = 0.0f;
-	yRotationMatrix[10] = (GLfloat)cos(angle_Pyramid);
+	yRotationMatrix[10] = (GLfloat)cos(angle_Pyramid*(3.1415f / 180.0f));
 	yRotationMatrix[11] = 0.0f;
 	yRotationMatrix[12] = 0.0f;
 	yRotationMatrix[13] = 0.0f;
@@ -513,12 +513,12 @@ void glYRotateCustom()
 
 void glZRotateCustom()
 {
-	zRotationMatrix[0] = (GLfloat)cos(angle_Pyramid);
-	zRotationMatrix[1] = (GLfloat)sin(angle_Pyramid);
+	zRotationMatrix[0] = (GLfloat)cos(angle_Pyramid*(3.1415f / 180.0f));
+	zRotationMatrix[1] = (GLfloat)sin(angle_Pyramid*(3.1415f / 180.0f));
 	zRotationMatrix[2] = 0.0f;
 	zRotationMatrix[3] = 0.0f;
-	zRotationMatrix[4] = (GLfloat)-sin(angle_Pyramid);
-	zRotationMatrix[5] = (GLfloat)cos(angle_Pyramid);
+	zRotationMatrix[4] = (GLfloat)-sin(angle_Pyramid*(3.1415f / 180.0f));
+	zRotationMatrix[5] = (GLfloat)cos(angle_Pyramid*(3.1415f / 180.0f));
 	zRotationMatrix[6] = 0.0f;
 	zRotationMatrix[7] = 0.0f;
 	zRotationMatrix[8] = 0.0f;
