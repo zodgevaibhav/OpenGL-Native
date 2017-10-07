@@ -1,10 +1,12 @@
 #include<windows.h>
 #include<gl/GL.h>
+#include<GL/glu.h>
 
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
 #pragma comment(lib,"opengl32.lib")
+#pragma comment(lib,"glu32.lib")
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -12,6 +14,7 @@ HBRUSH hBrushForBColor;
 HWND ghwnd = NULL;
 HDC ghdc = NULL;
 HGLRC ghrc = NULL;
+
 
 GLclampf red = 0.0f;
 GLclampf green = 0.0f;
@@ -25,6 +28,8 @@ WINDOWPLACEMENT wpPrev = { sizeof(WINDOWPLACEMENT) };
 bool gbFullscreen = false;
 bool gbEscaseKeyPressed = false;
 bool gbActiveWindow = false;
+
+int intX = 0, intY = 0;
 
 void resize(int, int);
 void initialize(void);
@@ -117,34 +122,71 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpszcmdLi
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
+	RECT rect;
+
+	GetClientRect(hwnd, &rect);
+	int width = rect.right;
+	int height= rect.bottom;
+
+	intX = LOWORD(lParam);
+	intY = HIWORD(lParam);
 	switch (iMsg)
 	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
-
 	case WM_CHAR:
+		
 		switch (wParam)
 		{
 		case '1': //R
-			glViewport(0, 300, (GLsizei)800, (GLsizei)600);
+			intX = 0;
+			intY = height / 2;
+			resize(width/2, height/2);
 			break;
 		case '2':
-			glViewport(600, 300, (GLsizei)800, (GLsizei)600);
+			intX = width / 2;
+			intY = height / 2;
+			resize(width / 2, height / 2);
 			break;
 		case '3':
-			glViewport(0, 0, (GLsizei)800, (GLsizei)600);
+			intX = 0;
+			intY = 0;
+			resize(width / 2, height / 2);
 			break;
 		case '4': //R
-			glViewport(600, 0, (GLsizei)800, (GLsizei)600);
+			intX = width /2;
+			intY = 0;
+			resize(width / 2, height / 2);
 			break;
 		case '5': //R
-			glViewport(-200, -200, (GLsizei)800, (GLsizei)600);
+			intX = 0;
+			intY = 0;
+			resize(width/2, height);
 			break;
 		case '6': //R
-			glViewport(700, -100, (GLsizei)800, (GLsizei)600);
+			intX = width / 2;
+			intY = 0;
+			resize(width / 2, height);
 			break;
 
+		case '7': //R
+			intX = 0;
+			intY = height/2;
+			resize(width, height/2);
+			break;
+
+		case '8': //R
+			intX = 0;
+			intY = 0;
+			resize(width, height / 2);
+			break;
+
+		case '9': //R
+			intX = width / 4;// set x as half less than middle point (1/4)
+			intY = height / 4;// set y as half less than middle point (1/4)
+			resize(width/2, height/2);
+			break;
 		case 0X47: //G
 			red = 0.0f;
 			green = 1.0f;
@@ -228,8 +270,11 @@ void resize(int width, int height)
 {
 	if (height == 0)
 		height = 1;
+	//glFrustum(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
+	glViewport(intX, intY, (GLsizei)width, (GLsizei)height);
+	//gluPerspective(0.0f, (GLfloat)width / (GLfloat)height, 100.0f, 100.0f);
+
 	
-	glViewport(0,0, (GLsizei)width, (GLsizei)height);
 }
 
 void uninitialize(void)
