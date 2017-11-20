@@ -41,7 +41,7 @@ GLUquadric *quadric = NULL;
 GLfloat light_ambient[] = {0.0f,0.0f,0.0f,1.0f};
 GLfloat light_defuse[] = { 1.0f,1.0f,1.0f,1.0f };
 GLfloat light_specular[] = { 1.0f,1.0f,1.0f,1.0f };
-GLfloat light_position[] = { 0.0f,0.0f,1.0f,0.0f };
+GLfloat light_position[] = { 1.0f,1.0f,1.0f,0.0f };
 
 GLfloat material_specular[] = { 1.0f,1.0f,1.0f,1.0f };
 GLfloat material_shining[] = {50.0f};
@@ -235,8 +235,6 @@ void display(void)
 	// 3rd param i.e. slices (like longitudes) and 4th param i.e. stacks (like latitudes)
 	// more the 3rd and the 4th params, i.e. more the subdivisions, more circular
 	gluSphere(quadric, 0.75, 30, 30);
-
-
 	SwapBuffers(ghdc);
 }
 
@@ -320,9 +318,10 @@ void initialize(void)
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-glMaterialfv(GL_FRONT,GL_SPECULAR, material_specular);
-glMaterialfv(GL_FRONT, GL_SHININESS, material_shining);
+	glMaterialfv(GL_FRONT,GL_SPECULAR, material_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, material_shining);
 	glEnable(GL_LIGHT0);
+	
 }
 
 void ToggleFullscreen(void)
