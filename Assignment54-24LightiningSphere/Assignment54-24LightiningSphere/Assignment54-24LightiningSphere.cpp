@@ -56,7 +56,7 @@ GLfloat light_model_local_viewer[] = {0.0f};
 
 GLfloat light_white_ambient[] = { 0.0f,0.0f,0.0f,0.0f };
 GLfloat light_white_defuse[] = { 1.0f,1.0f,1.0f,1.0f };
-GLfloat light_white_specular[] = { 1.0f,0.0f,0.0f,1.0f };
+GLfloat light_white_specular[] = { 1.0f,1.0f,1.0f,1.0f };
 GLfloat light_white_position[] = { 0.0f,0.0f,0.0f,0.0f };
 
 
@@ -796,7 +796,7 @@ void resize(int width, int height)
 void update(void)
 {
 	//code
-	angle = angle + 0.1f;
+	angle = angle + 0.5f;
 	if (angle >= 360.0f)
 		angle = 0.0f;
 }
