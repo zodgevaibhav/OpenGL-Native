@@ -53,6 +53,10 @@
 #define END_ANGLE_POS	360.0f
 #define MONKEYHEAD_ANGLE_INCREMENT	1.0f
 
+GLfloat light_ambient[] = { 0.5f,0.5f,0.5f,1.0f };
+GLfloat light_defuse[] = { 1.0f,0.0f,0.0f,0.0f };
+GLfloat light_specular[] = { 1.0f,1.0f,1.0f,1.0f };
+GLfloat light_position[] = { 1.0f,1.0f,1.5f,0.0f };
 
 #pragma comment (lib,"user32.lib")
 #pragma comment (lib,"gdi32.lib")
@@ -416,13 +420,17 @@ void initialize(void)
 	glDepthFunc(GL_LEQUAL); // type of depth testing
 	glShadeModel(GL_SMOOTH);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
-	//glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-	//glLightfv(GL_LIGHT0, GL_DIFFUSE, light_defuse);
-	//glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-	//glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_defuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-	//glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHTING);
+	
 	LoadMeshData();
+	
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	resize(WIN_WIDTH, WIN_HEIGHT);
 //	fprintf(g_fp_logfile, "***************************************************** Initialize() END");
@@ -469,9 +477,11 @@ void display(void)
 	for (int i = 0; i	!=  g_face_tri.size(); ++i)
 	{
 		glBegin(GL_TRIANGLES);
+//		glNormal3f(g_normals[i][0], g_normals[i][1], g_normals[i][2]);
 		for (int j = 0; j != g_face_tri[i].size(); j++)
 		{
 			int vi = g_face_tri[i][j] - 1;
+				//glNormal3f(g_normals[vi][0], g_normals[vi][1], g_normals[vi][2]);
 				glVertex3f(g_vertices[vi][0], g_vertices[vi][1], g_vertices[vi][2]);
 		}
 		glEnd();
