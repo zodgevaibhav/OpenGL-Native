@@ -53,10 +53,15 @@
 #define END_ANGLE_POS	360.0f
 #define MONKEYHEAD_ANGLE_INCREMENT	1.0f
 
-GLfloat light_ambient[] = { 0.5f,0.5f,0.5f,1.0f };
+GLfloat light_ambient[] = { 1.0f,1.0f,1.0f,1.0f };
 GLfloat light_defuse[] = { 1.0f,0.0f,0.0f,0.0f };
-GLfloat light_specular[] = { 1.0f,1.0f,1.0f,1.0f };
-GLfloat light_position[] = { 1.0f,1.0f,1.5f,0.0f };
+GLfloat light_specular[] = { 0.0f,0.0f,0.0f,0.0f };
+GLfloat light_position[] = { 0.0f,0.75f,1.0f,0.0f };
+
+GLfloat  ambient_material[] = { 0.25f, 0.25f, 0.25f,1.0f };
+GLfloat  difuse_material[] = { 0.4f, 0.4f, 0.4f,1.0f };
+GLfloat  specular_material[] = { 0.774597f, 0.774597f, 0.774597f,1.0f };
+GLfloat  shininess[] = { 0.6f *128.0f };
 
 #pragma comment (lib,"user32.lib")
 #pragma comment (lib,"gdi32.lib")
@@ -418,9 +423,14 @@ void initialize(void)
 	glClearDepth(1.0f); // set depth buffer
 	glEnable(GL_DEPTH_TEST); // enable depth testing
 	glDepthFunc(GL_LEQUAL); // type of depth testing
+	
 	glShadeModel(GL_SMOOTH);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
 	
+	glEnable(GL_AUTO_NORMAL);
+	glEnable(GL_NORMALIZE);
+
+
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_defuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
@@ -472,16 +482,21 @@ void display(void)
 	glScalef(MONKEY_HEAD_X_SCALE_FACTOR, MONKEY_HEAD_Y_SCALE_FACTOR, MONKEY_HEAD_Z_SCALE_FACTOR);
 	glFrontFace(GL_CCW);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_material);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_material);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, difuse_material);
 
 	for (int i = 0; i	!=  g_face_tri.size(); ++i)
 	{
+
 		glBegin(GL_TRIANGLES);
-//		glNormal3f(g_normals[i][0], g_normals[i][1], g_normals[i][2]);
 		for (int j = 0; j != g_face_tri[i].size(); j++)
 		{
 			int vi = g_face_tri[i][j] - 1;
-				//glNormal3f(g_normals[vi][0], g_normals[vi][1], g_normals[vi][2]);
+				glNormal3f(g_normals[vi][0], g_normals[vi][1], g_normals[vi][2]);
 				glVertex3f(g_vertices[vi][0], g_vertices[vi][1], g_vertices[vi][2]);
 		}
 		glEnd();
@@ -565,7 +580,7 @@ void LoadMeshData(void)
 			std::vector<float>vec_texture_coords(NR_TEXTURE_COORDS);
 			
 			for (int i = 0; i != NR_TEXTURE_COORDS; i++)
-				vec_texture_coords[i] = atoi(strtok(NULL, sep_space));
+				vec_texture_coords[i] = atof(strtok(NULL, sep_space));
 			g_texture.push_back(vec_texture_coords);
 		}
 		else if (strcmp(first_token,"vn")==S_EQUAL)
@@ -573,7 +588,7 @@ void LoadMeshData(void)
 			std::vector<float>vec_normal_coords(NR_NORMAL_COORDS);
 
 			for (int i = 0; i != NR_NORMAL_COORDS; i++)
-				vec_normal_coords[i] = atoi(strtok(NULL, sep_space));
+				vec_normal_coords[i] = atof(strtok(NULL, sep_space));
 			g_normals.push_back(vec_normal_coords);
 		}
 		else if (strcmp(first_token, "f") == S_EQUAL)
